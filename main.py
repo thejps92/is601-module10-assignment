@@ -64,6 +64,11 @@ async def read_root(request: Request):
     logger.info("Serving homepage")
     return templates.TemplateResponse("index.html", {"request": request})
 
+
+@app.get("/health")
+async def healthcheck():
+    return {"status": "ok"}
+
 @app.post("/add", response_model=OperationResponse, responses={400: {"model": ErrorResponse}})
 async def add_route(operation: OperationRequest):
     """
